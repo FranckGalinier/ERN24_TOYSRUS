@@ -21,29 +21,30 @@ function get_all_toys(){
 function get_brands_with_count(){
 
 
-global $connexion;
-//:on crée la requete pour récupérer les jouets
-//on crée la requete
- $query = "SELECT brands.id, brands.name, COUNT(toys.brand_id) AS total
- FROM brands 
- INNER JOIN toys ON brands.id = toys.brand_id
- GROUP BY brands.id";
-//on exécute la requetass
-if($result = mysqli_query($connexion, $query)){ //on ouvre la connexion et on fait la requete
+    global $connexion;
+    //:on crée la requete pour récupérer les jouets
+    //on crée la requete
+    $query = "SELECT brands.id, brands.name, COUNT(toys.brand_id) AS total
+    FROM brands 
+    INNER JOIN toys ON brands.id = toys.brand_id
+    GROUP BY brands.id";
+    //on exécute la requetass
+    if($result = mysqli_query($connexion, $query)){ //on ouvre la connexion et on fait la requete
     //on vérifie que l'on a des resultats
     if(mysqli_num_rows($result)>0){//au moins un resultat dans result
         //on peut parcourir les résultats
         while($brand = mysqli_fetch_assoc($result)){//retourne pour chaque jouet un tableau associatif-->
         ?> 
         <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="../brand.php?brand_id=<?php echo $brand['id'] ?> ">
                 <?php echo $brand['name'] ?> ( <?php echo $brand['total'] ?> )
             </a>
         </li>
         <?php
+    }
+    }
+    }
 }
-}
-}}
 
 
 function get_toy_by_id($toy_id){
@@ -71,4 +72,52 @@ function get_toy_by_id($toy_id){
         render_toy_detail($toy);
         }
     }
+}
+//méthode qui récupère les jouets en fonction de la marque
+function get_toy_by_brand($brand_id){
+    global $connexion;
+        $query = "SELECT toys.id, toys.name, toys.price, toys.image, toys.description, brands.name AS brand_name
+        FROM `toys`
+        INNER JOIN `brands` ON toys.brand_id = brands.id
+        WHERE brand_id = ?";
+
+      //on prépare la requete
+    if($stmt = mysqli_prepare($connexion, $query)){
+        //on bind les param
+        mysqli_stmt_bind_param($stmt, "i", $brand_id);
+    }
+    //on exécute la requete
+    if(!mysqli_execute($stmt)){
+        echo "Erreur lors de l'exécution de la requete";
+    }
+    $result = mysqli_stmt_get_result($stmt);
+
+    if(mysqli_num_rows($result)>0){
+        while($toy = mysqli_fetch_assoc($result)){
+        render_all_toys($toy);
+        }
+    }
+
+}
+//méthode qui récupère les articles les plus vendus
+function get_top_3(){
+    global $connexion;
+
+    $query = "SELECT t.id, t.name, t.price, t.image, SUM(s.quantity) AS total
+    FROM toys AS t
+    INNER JOIN sales as s ON t.id =s.toy_id
+    GROUP BY t.id
+    ORDER BY total DESC 
+    LIMIT 3";
+
+    if($result = mysqli_query($connexion, $query)){ //on ouvre la connexion et on fait la requete
+    //on vérifie que l'on a des resultats
+    if(mysqli_num_rows($result)>0){//au moins un resultat dans result
+        //on peut parcourir les résultats
+        while($toy = mysqli_fetch_assoc($result)){
+
+            render_all_toys($toy);
+        }
+    }
+}
 }

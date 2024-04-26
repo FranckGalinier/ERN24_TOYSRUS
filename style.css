@@ -1,0 +1,49 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-image: url('./img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 51%;
+}
+
+.logo{
+    width: 30%;
+    height: auto;
+    object-fit: contain;
+}
+
+.custom_background{
+    background-color: aqua;
+}
+nav ul li a{
+    color: white;
+}
+a{
+    text-decoration: none;
+} 
+
+.toy_img{
+    width: 100%;
+    object-fit: contain;
+}
+.toy_name{
+    text-align: center;
+}
+.toy_price{
+    text-align: center;
+    font-size: 35px;
+    color:#000;
+}

@@ -1,6 +1,6 @@
 <?php
 
-// on déclare nos constantes de connecion à la base de données
+// on déclare nos constantes de connexion à la base de données
 define('DB_HOST', 'database');
 define('DB_USER', 'admin');
 define('DB_PASS', 'admin');

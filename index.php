@@ -1,6 +1,6 @@
-<?php require_once('./requete/config.php') ?>
-<?php require_once('./requete/get_toys.php') ?>
-<?php require_once('./template/_toy.php') ?>
+<?php require_once('./requete_sql/connexion.php') ?>
+<?php require_once('./requete_sql/functions_sql.php') ?>
+<?php require_once('./template/functions_html.php') ?>
 
 
 <?php require_once('./template/_header.php')?>

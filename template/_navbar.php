@@ -1,7 +1,7 @@
 <div class="d-flex flex-column w-100">
-    <a href="../index.php">
-        <img class="m-2 logo" src="../img/logo.jpg" alt="Logo du site">
-    </a>
+  <a href="../index.php">
+    <img class="m-2 logo" src="../img/logo.jpg" alt="Logo du site">
+  </a>
 
   <nav class="navbar navbar-expand-lg custom_background w-100">
   <div class="container-fluid">
@@ -13,6 +13,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="../toys.php">Accueil</a>
         </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Par marque
@@ -21,6 +22,26 @@
             <?php get_brands_with_count() ?>
           </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Par magasin
+          </a>
+          <ul class="dropdown-menu">
+            <?php get_stores() ?>
+          </ul>
+        </li>
+ 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Par prix
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class ="dropdown-item"href="../toys.php?order=asc">Prix croissant</a></li>
+            <li><a class ="dropdown-item"href="../toys.php?order=desc">Prix décroissant</a></li>
+          </ul>
+        </li>
+
       </ul>
     </div>
   </div>
